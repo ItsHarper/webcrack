@@ -115,7 +115,6 @@ function mergeOptions(options: Options): asserts options is Required<Options> {
     unpack: true,
     deobfuscate: true,
     mangle: false,
-    mangleStable: false,
     plugins: options.plugins ?? {},
     mappings: () => ({}),
     onProgress: () => {},
@@ -189,14 +188,16 @@ export async function webcrack(
       (() => runPlugins(ast, plugins.afterUnminify!, state)),
 
     options.mangle &&
-      (() =>
-        applyTransform(
-          ast,
-          mangle,
-          typeof options.mangle !== 'function'
-            ? () => options.mangle
-            : options.mangle,
-        )),
+      (() => {
+        let mangleOptionsFunction: (id: string) => boolean | 'stable';
+        if (typeof options.mangle === 'function') {
+          mangleOptionsFunction = options.mangle;
+        } else {
+          const mangleOptions: boolean | 'stable' = options.mangle;
+          mangleOptionsFunction = () => mangleOptions;
+        }
+        applyTransform(ast, mangle, mangleOptionsFunction);
+      }),
     // TODO: Also merge unminify visitor (breaks selfDefending/debugProtection atm)
     (options.deobfuscate || options.jsx) &&
       (() => {
