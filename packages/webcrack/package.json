@@ -1,6 +1,6 @@
 {
   "name": "webcrack",
-  "version": "2.16.0-beta.0",
+  "version": "2.16.0-beta.1",
   "description": "Deobfuscate, unminify and unpack bundled javascript",
   "author": "j4k0xb",
   "license": "MIT",
@@ -31,7 +31,9 @@
     "tmp": "node esbuild.config.js && node --enable-source-maps dist/cli.js tmp/test.js -f -o tmp/webcrack-out",
     "lint": "eslint src test",
     "lint:fix": "eslint src test --fix",
-    "typecheck": "tsc",
+    "format:check": "prettier --check \"{src,test}/**/*.ts\"",
+    "format": "prettier --write \"{src,test}**/*.ts\"",
+    "typecheck": "tsc --noEmit",
     "test": "vitest --no-isolate"
   },
   "repository": {
@@ -53,27 +55,27 @@
     "unbundle"
   ],
   "dependencies": {
-    "@babel/generator": "^7.26.0",
-    "@babel/helper-validator-identifier": "^7.25.9",
-    "@babel/parser": "^7.26.1",
-    "@babel/template": "^7.25.9",
-    "@babel/traverse": "^7.25.9",
-    "@babel/types": "^7.26.0",
+    "@babel/generator": "^7.27.1",
+    "@babel/helper-validator-identifier": "^7.27.1",
+    "@babel/parser": "^7.27.2",
+    "@babel/template": "^7.27.2",
+    "@babel/traverse": "^7.27.1",
+    "@babel/types": "^7.27.1",
     "@codemod/matchers": "^1.7.1",
-    "commander": "^12.1.0",
-    "debug": "^4.3.7",
-    "isolated-vm": "^5.0.1"
+    "commander": "^13.1.0",
+    "debug": "^4.4.0",
+    "isolated-vm": "^6.0.1"
   },
   "devDependencies": {
     "@types/babel__generator": "^7.6.8",
     "@types/babel__helper-validator-identifier": "^7.15.2",
     "@types/babel__template": "^7.4.4",
-    "@types/babel__traverse": "^7.20.6",
+    "@types/babel__traverse": "^7.20.7",
     "@types/debug": "^4.1.12",
-    "@types/node": "^22.13.8",
+    "@types/node": "^22.13.16",
     "@webcrack/eslint-config": "workspace:*",
     "@webcrack/typescript-config": "workspace:*",
-    "esbuild": "^0.25.0",
+    "esbuild": "^0.25.2",
     "typescript": "^5.8.2"
   }
 }
