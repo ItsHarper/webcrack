@@ -124,7 +124,11 @@ function generateExpressionName(
   } else if (expression.isNumericLiteral()) {
     return 'LN' + expression.node.value.toString();
   } else if (expression.isStringLiteral()) {
-    return 'LS' + titleCase(expression.node.value).slice(0, 20);
+    const longExpressionName = titleCase(expression.node.value);
+    const expressionName = stable
+      ? longExpressionName
+      : longExpressionName.slice(0, 20);
+    return 'LS' + expressionName;
   } else if (expression.isObjectExpression()) {
     return 'O' + (stable ? `_${expression.node.properties.length}` : '');
   } else if (expression.isArrayExpression()) {
