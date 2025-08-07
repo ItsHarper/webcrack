@@ -114,7 +114,7 @@ function mergeOptions(options: Options): asserts options is Required<Options> {
     mangleStable: false,
     plugins: [],
     mappings: () => ({}),
-    onProgress: () => { },
+    onProgress: () => {},
     sandbox: isBrowser() ? createBrowserSandbox() : createNodeSandbox(),
     ...options,
   };
@@ -170,35 +170,37 @@ export async function webcrack(
     plugins.prepare && (() => plugins.prepare(ast)),
 
     options.deobfuscate &&
-    (() => applyTransformAsync(ast, deobfuscate, options.sandbox)),
+      (() => applyTransformAsync(ast, deobfuscate, options.sandbox)),
     plugins.deobfuscate && (() => plugins.deobfuscate(ast)),
 
     options.unminify &&
-    (() => {
-      applyTransforms(ast, [transpile, unminify]);
-    }),
+      (() => {
+        applyTransforms(ast, [transpile, unminify]);
+      }),
     plugins.unminify && (() => plugins.unminify(ast)),
     options.mangle &&
-    (() =>
-      applyTransform(
-        ast,
-        mangle,
-        typeof options.mangle !== 'function' ? () => options.mangle : options.mangle,
-      )),
+      (() =>
+        applyTransform(
+          ast,
+          mangle,
+          typeof options.mangle !== 'function'
+            ? () => options.mangle
+            : options.mangle,
+        )),
     // TODO: Also merge unminify visitor (breaks selfDefending/debugProtection atm)
     (options.deobfuscate || options.jsx) &&
-    (() => {
-      applyTransforms(
-        ast,
-        [
-          // Have to run this after unminify to properly detect it
-          options.deobfuscate ? [selfDefending, debugProtection] : [],
-          options.jsx ? [jsx, jsxNew] : [],
-        ].flat(),
-      );
-    }),
+      (() => {
+        applyTransforms(
+          ast,
+          [
+            // Have to run this after unminify to properly detect it
+            options.deobfuscate ? [selfDefending, debugProtection] : [],
+            options.jsx ? [jsx, jsxNew] : [],
+          ].flat(),
+        );
+      }),
     options.deobfuscate &&
-    (() => applyTransforms(ast, [mergeObjectAssignments, evaluateGlobals])),
+      (() => applyTransforms(ast, [mergeObjectAssignments, evaluateGlobals])),
     () => (outputCode = generate(ast)),
     // Unpacking modifies the same AST and may result in imports not at top level
     // so the code has to be generated before
