@@ -6,7 +6,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { readFile, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import * as url from 'node:url';
-import { webcrack } from './index.js';
+import { webcrack, type Options } from './index.js';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const { version, description } = JSON.parse(
@@ -15,10 +15,11 @@ const { version, description } = JSON.parse(
 
 debug.enable('webcrack:*');
 
-interface Options {
+interface CliOptions {
   force: boolean;
   output?: string;
-  mangle: boolean;
+  mangle?: boolean;
+  mangleStableNames?: boolean;
   jsx: boolean;
   unpack: boolean;
   deobfuscate: boolean;
@@ -38,13 +39,19 @@ program
   .option('-o, --output <path>', 'output directory for bundled files')
   .option('-f, --force', 'overwrite output directory')
   .option('-m, --mangle', 'mangle variable names')
+  .option(
+    '--mangleStableNames',
+    'mangle variable names as stably as possible (overrides --mangle)',
+  )
   .option('--no-jsx', 'do not decompile JSX')
   .option('--no-unpack', 'do not extract modules from the bundle')
   .option('--no-deobfuscate', 'do not deobfuscate the code')
   .option('--no-unminify', 'do not unminify the code')
   .argument('[file]', 'input file, defaults to stdin')
   .action(async (input: string | undefined) => {
-    const { output, force, ...options } = program.opts<Options>();
+    const { output, force, mangleStableNames, ...cliOptions } =
+      program.opts<CliOptions>();
+
     const code = await (input ? readFile(input, 'utf8') : readStdin());
 
     if (output) {
@@ -55,6 +62,10 @@ program
       }
     }
 
+    const options: Options = cliOptions;
+    if (mangleStableNames) {
+      options.mangle = 'stable';
+    }
     const result = await webcrack(code, options);
 
     if (output) {
