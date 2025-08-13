@@ -79,7 +79,7 @@ export class VMDecoder {
           error.message.includes('Segmentation fault'))
       ) {
         throw new Error(
-          'isolated-vm version mismatch. Check https://webcrack.netlify.app/docs/guide/common-errors.html#isolated-vm',
+          'isolated-vm version mismatch. Check https://itsharper-webcrack.netlify.app/docs/guide/common-errors.html#isolated-vm',
           { cause: error },
         );
       }

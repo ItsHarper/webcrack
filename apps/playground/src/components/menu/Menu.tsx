@@ -39,6 +39,9 @@ export default function Menu(props: Props) {
 
   return (
     <ul ref={menuRef} class="menu menu-horizontal bg-base-200 w-full">
+      <li>
+        <span>@itsharper/webcrack</span>
+      </li>
       <MenuHeader
         title="File"
         open={openedMenu() === 'file'}
@@ -144,7 +147,7 @@ export default function Menu(props: Props) {
       </MenuHeader>
       <li>
         <a
-          href="https://github.com/j4k0xb/webcrack"
+          href="https://github.com/ItsHarper/webcrack"
           target="_blank"
           class="link link-hover"
         >
@@ -154,6 +157,15 @@ export default function Menu(props: Props) {
       <li>
         <a href="/docs" target="_blank" class="link link-hover">
           Documentation
+        </a>
+      </li>
+      <li>
+        <a
+          href="http://webcrack.netlify.app/"
+          target="_blank"
+          class="link link-hover"
+        >
+          Upstream version
         </a>
       </li>
     </ul>

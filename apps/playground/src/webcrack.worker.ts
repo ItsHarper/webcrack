@@ -1,5 +1,5 @@
-import type { Options, Sandbox } from 'webcrack';
-import { webcrack } from 'webcrack';
+import type { Options, Sandbox } from '@itsharper/webcrack';
+import { webcrack } from '@itsharper/webcrack';
 
 export type WorkerRequest =
   | {

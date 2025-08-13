@@ -1,6 +1,6 @@
 # Website
 
-On the [playground](https://webcrack.netlify.app/) you can deobfuscate code without installing anything.
+On the [playground](https://itsharper-webcrack.netlify.app/) you can deobfuscate code without installing anything.
 It runs entirely in the browser, so the code never leaves your computer.
 
 ::: tip
@@ -25,7 +25,7 @@ Keep in mind to encode them (e.g. `encodeURIComponent` in js).
 
 Examples:
 
-- [/?url=https://pastebin.com/raw/ye3usFvH](https://webcrack.netlify.app/?url=https%3A%2F%2Fpastebin.com%2Fraw%2Fye3usFvH)
+- [/?url=https://pastebin.com/raw/ye3usFvH](https://itsharper-webcrack.netlify.app/?url=https%3A%2F%2Fpastebin.com%2Fraw%2Fye3usFvH)
 
 ::: info
 Use this only if you don't mind netlify or corsproxy.io seeing the code/url, otherwise paste it directly into the editor.

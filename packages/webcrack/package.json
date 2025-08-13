@@ -1,5 +1,5 @@
 {
-  "name": "webcrack",
+  "name": "@itsharper/webcrack",
   "version": "2.16.0-beta.1",
   "description": "Deobfuscate, unminify and unpack bundled javascript",
   "author": "j4k0xb",
@@ -41,9 +41,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/j4k0xb/webcrack"
+    "url": "https://github.com/ItsHarper/webcrack"
   },
-  "homepage": "https://webcrack.netlify.app",
+  "homepage": "https://itsharper-webcrack.netlify.app",
   "keywords": [
     "webpack",
     "bundle",
